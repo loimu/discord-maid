@@ -1,0 +1,6 @@
+*.pyc
+*.sqlite3
+*.db
+local.py
+bot_secrets.py
+.kdev4
