@@ -54,7 +54,7 @@ class Fun(commands.Cog, name='Fun'):
         if msg:
             result = ''.join([lt[tr.find(c)] for c in msg.content if c in tr])
             em = discord.Embed(description=result, colour=col.dark_gold())
-            em.set_author(name=msg.author.nick,
+            em.set_author(name=msg.author.name,
                           icon_url=msg.author.avatar_url)
             em.timestamp = msg.created_at
             em.set_footer(text='translated')
