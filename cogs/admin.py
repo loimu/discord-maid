@@ -98,11 +98,14 @@ class Admin(commands.Cog, name='Admin'):
             await channel.send(embed=em)
             break
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.check(is_owner)
     async def purge(self,
                     ctx: commands.context.Context,
                     target: Optional[str] = None) -> None:
+        """
+        Removes a given number of latest messages, or just one message if empty
+        """
         channel = ctx.message.channel
         if target:
             if target.isdigit():

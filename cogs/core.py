@@ -16,7 +16,7 @@ class Core(commands.Cog, name='Core'):
     @commands.check(is_owner)
     async def load(self,
                    ctx: commands.context.Context, extension: str) -> None:
-        if extension is not 'core':
+        if extension != 'core':
             try:
                 self.client.load_extension("cogs.{}".format(extension))
             except Exception as error:
@@ -26,7 +26,7 @@ class Core(commands.Cog, name='Core'):
     @commands.check(is_owner)
     async def unload(self,
                      ctx: commands.context.Context, extension: str) -> None:
-        if extension is not 'core':
+        if extension != 'core':
             try:
                 self.client.unload_extension("cogs.{}".format(extension))
             except Exception as error:

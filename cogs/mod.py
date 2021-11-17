@@ -32,15 +32,18 @@ class Mod(commands.Cog, name='Mod'):
         muted = 'muted'
         role = get(server.roles, name=muted)
         if not role:
-            role = await self.client.create_role(name=muted, server=server)
+            role = await server.create_role(name=muted)
             perms = discord.PermissionOverwrite(send_messages=False)
             for ch in server.channels:
-                await self.client.edit_channel_permissions(ch, role, perms)
+                await ch.set_permissions(role, overwrite=perms)
         return role
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.has_role(mod_role)
     async def mute(self, ctx: commands.context.Context, target: str) -> None:
+        """
+        Mutes a given user
+        """
         server = ctx.message.guild
         user = server.get_member_named(target)
         mod = get(user.roles, name=mod_role)
@@ -54,9 +57,12 @@ class Mod(commands.Cog, name='Mod'):
                           "User {} was muted by {}.".format(
                               user.name, ctx.message.author.nick))
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.has_role(mod_role)
     async def unmute(self, ctx: commands.context.Context, target: str) -> None:
+        """
+        Unmutes a given user
+        """
         user = ctx.message.guild.get_member_named(target)
         muted = get(user.roles, name='muted')
         if muted:
@@ -64,9 +70,12 @@ class Mod(commands.Cog, name='Mod'):
         await self.notify(ctx.message.channel,
                           "User {} was unmuted.".format(user.name))
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.has_role(mod_role)
     async def stop(self, ctx: commands.context.Context) -> None:
+        """
+        Unmutes the channel command was invoked on
+        """
         server = ctx.message.guild
         channel = ctx.message.channel
         everyone = get(channel.changed_roles, name='@everyone')
@@ -81,9 +90,12 @@ class Mod(commands.Cog, name='Mod'):
             channel, "Channel was deliberately muted by {}. :mute:".format(
                 ctx.message.author.nick))
 
-    @commands.command(hidden=True)
+    @commands.command()
     @commands.has_role(mod_role)
     async def start(self, ctx: commands.context.Context) -> None:
+        """
+        Mutes the channel command was invoked on
+        """
         server = ctx.message.guild
         channel = ctx.message.channel
         everyone = get(channel.changed_roles, name='@everyone')
