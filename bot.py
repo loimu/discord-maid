@@ -9,7 +9,10 @@ from discord.ext import commands
 
 from bot_secrets import PREFIX, OWNER_ID, BOT_TOKEN
 
-client = commands.Bot(PREFIX)
+intents = discord.Intents.default()
+intents.members = True
+
+client = commands.Bot(command_prefix=PREFIX, intents=intents)
 extensions = ['core', 'admin', 'mod', 'fun']
 
 is_owner = lambda x: x.message.author.id == OWNER_ID

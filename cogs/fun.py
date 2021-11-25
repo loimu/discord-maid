@@ -23,15 +23,6 @@ class Fun(commands.Cog, name='Fun'):
             await channel.send(
                 "{} flew away through the open window".format(member.name))
 
-    @commands.command()
-    async def radar(self, ctx: commands.context.Context, radar: str) -> None:
-        """
-        Shows a weather radar map for the selected airport.
-        Takes one argument which should be a valid airport code. Example: UMMN
-        """
-        await ctx.send(
-            "http://meteoinfo.by/radar/{}/radar-map.gif".format(radar.upper()))
-
     @commands.command(name='tr')
     async def translate(self,
                         ctx: commands.context.Context,
